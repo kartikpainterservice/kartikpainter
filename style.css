@@ -231,27 +231,7 @@ span.arrow {
 
 }
 
-    /* SLIDER */
-    .slider {
-      position: relative;
-      width: 100%;
-      height: 90vh;
-      overflow: hidden;
-      box-shadow: -8px 10px 20px rgba(9, 9, 9, 0.397);
-    }
 
-    .slides {
-      display: flex;
-      width: 600%;
-      height: 100%;
-      animation: slide 25s infinite;
-    }
-
-    .slides img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
 
     .slider::after {
       content: "";
@@ -322,6 +302,47 @@ span.arrow {
       gap: 20px;
       flex-wrap: wrap;
     }
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .slider {
+    height: 60vh; /* mobile ke liye thoda chhota */
+  }
+  .slides {
+    animation: slideMobile 20s infinite;
+  }
+  .slides img {
+    width: 100%;  /* ek time par ek image */
+  }
+}
+
+/* Desktop Animation */
+@keyframes slide {
+  0%   { transform: translateX(0); }
+  20%  { transform: translateX(0); }
+  25%  { transform: translateX(-100%); }
+  45%  { transform: translateX(-100%); }
+  50%  { transform: translateX(-200%); }
+  70%  { transform: translateX(-200%); }
+  75%  { transform: translateX(-300%); }
+  95%  { transform: translateX(-300%); }
+  100% { transform: translateX(0); }
+}
+
+/* Mobile Animation (1 by 1 image) */
+@keyframes slideMobile {
+  0%   { transform: translateX(0); }
+  16%  { transform: translateX(0); }
+  20%  { transform: translateX(-100%); }
+  36%  { transform: translateX(-100%); }
+  40%  { transform: translateX(-200%); }
+  56%  { transform: translateX(-200%); }
+  60%  { transform: translateX(-300%); }
+  76%  { transform: translateX(-300%); }
+  80%  { transform: translateX(-400%); }
+  96%  { transform: translateX(-400%); }
+  100% { transform: translateX(0); }
+}
 
     .intro-section {
   padding: 60px 20px;
@@ -1168,19 +1189,6 @@ span.arrow {
       font-size: 0.9rem;
     }
 
-    @keyframes slide {
-      0% { margin-left: 0%; }
-      16% { margin-left: 0%; }
-      20% { margin-left: -100%; }
-      36% { margin-left: -100%; }
-      40% { margin-left: -200%; }
-      56% { margin-left: -200%; }
-      60% { margin-left: -300%; }
-      76% { margin-left: -300%; }
-      80% { margin-left: -400%; }
-      96% { margin-left: -400%; }
-      100% { margin-left: -500%; }
-    }
 
     /* RESPONSIVE */
     @media (max-width: 768px) {
