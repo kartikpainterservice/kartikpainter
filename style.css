@@ -172,11 +172,17 @@ span.arrow {
   gap: 1.5rem;
   z-index: 20;
   transform: translateX(100%);
-  transition: transform 0.3s ease;
+  opacity: 0;
+  visibility: hidden;
+  transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1), 
+              opacity 0.3s ease, 
+              visibility 0.3s ease;
 }
 
 .mobile-menu.active {
   transform: translateX(0);
+  opacity: 1;
+  visibility: visible;
 }
 
 .mobile-menu a {
@@ -192,10 +198,10 @@ span.arrow {
 
 /* Mobile dropdown inside menu */
 .mobile-menu .dropdown-menu {
-  position: static;
-  background: none;
-  box-shadow: none;
-  padding-left: 6rem;
+   max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.4s ease, opacity 0.3s ease;
 }
 .mobile-menu .dropdown-menu li a {
   color: #ddd;
@@ -227,6 +233,16 @@ span.arrow {
 
 .close-btn:hover {
   color: #f97316;
+}
+
+/* ========== CLICK FEEDBACK EFFECT ========== */
+a, button {
+  transition: all 0.2s ease;
+}
+
+a:active, button:active {
+  transform: scale(0.96);  /* thoda press feel */
+  opacity: 0.85;           /* halka fade */
 }
 
 
@@ -1034,7 +1050,7 @@ span.arrow {
       }
 
       span.arrow {
-    margin-left: -10px;
+    margin-left: -20px;
 }
     }
 /* ========== RESPONSIVE ========== */
