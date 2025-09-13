@@ -181,29 +181,31 @@
     </section>
 
     <!-- ACHIEVEMENTS SECTION -->
-    <section class="achievements-section">
-      <div class="container">
-        <h2 class="section-heading">Achievements</h2>
-        <div class="achievements-grid">
-          <div class="achievement-item">
-            <h3>18+</h3>
-            <p>Years of Experience</p>
-          </div>
-          <div class="achievement-item">
-            <h3>80%</h3>
-            <p>Repeat Customers</p>
-          </div>
-          <div class="achievement-item">
-            <h3>95%</h3>
-            <p>Customers Satisfied</p>
-          </div>
-          <div class="achievement-item">
-            <h3>99%</h3>
-            <p>Customer Satisfaction</p>
-          </div>
-        </div>
+    <!-- ACHIEVEMENTS SECTION -->
+<section class="achievements-section">
+  <div class="container">
+    <h2 class="section-heading">Achievements</h2>
+    <div class="achievements-grid">
+      <div class="achievement-item">
+        <h3 data-target="18" data-suffix="+">0</h3>
+        <p>Years of Experience</p>
       </div>
-    </section>
+      <div class="achievement-item">
+        <h3 data-target="80" data-suffix="%">0</h3>
+        <p>Repeat Customers</p>
+      </div>
+      <div class="achievement-item">
+        <h3 data-target="95" data-suffix="%">0</h3>
+        <p>Customers Satisfied</p>
+      </div>
+      <div class="achievement-item">
+        <h3 data-target="99" data-suffix="%">0</h3>
+        <p>Customer Satisfaction</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 
     <section class="testimonial-section">
@@ -674,6 +676,46 @@ if (closeBtn && mobileMenu) {
 });
 
 </script>
+
+  <script>
+document.addEventListener("DOMContentLoaded", () => {
+  const counters = document.querySelectorAll(".achievement-item h3");
+  let started = false;
+
+  function startCounting() {
+    if (started) return; // ek hi bar chalega
+    started = true;
+
+    counters.forEach(counter => {
+      const target = +counter.getAttribute("data-target");
+      const suffix = counter.getAttribute("data-suffix") || "";
+      let count = 0;
+      const increment = Math.ceil(target / 100);
+
+      const updateCounter = setInterval(() => {
+        count += increment;
+        if (count >= target) {
+          count = target;
+          clearInterval(updateCounter);
+        }
+        counter.textContent = count + suffix;
+      }, 20);
+    });
+  }
+
+  // Jab section viewport me aaye tab shuru karo
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        startCounting();
+      }
+    });
+  }, { threshold: 0.5 });
+
+  observer.observe(document.querySelector(".achievements-section"));
+});
+</script>
+
 
 </body>
 </html>
