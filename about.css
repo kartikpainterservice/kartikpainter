@@ -857,6 +857,41 @@ a.sec {
     }
   }
 
+/* Achievements Section */
+.achievements-section {
+  padding: 60px 20px;
+  background: #fff;
+  text-align: center;
+}
+.achievements-section h2 {
+  font-size: 28px;
+  margin-bottom: 30px;
+}
+.achievements-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+}
+.achievement-item h3 {
+  font-size: 32px;
+  color: #f97316; /* Orange color */
+  margin: 0;
+}
+.achievement-item p {
+  margin: 5px 0 0;
+  font-size: 14px;
+  color: #555;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .achievements-grid {
+    gap: 20px;
+  }
+}
+
+
 
 
 
