@@ -584,9 +584,9 @@
 <script src="script.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
-<script>
+  <script>
 document.addEventListener("DOMContentLoaded", function () {
+
   /* -------------------------
      TESTIMONIAL CAROUSEL (Custom)
   ------------------------- */
@@ -602,11 +602,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function nextSlide() {
       currentIndex = (currentIndex + 1) % totalCards;
-      updateSlide();
-    }
-
-    function prevSlide() {
-      currentIndex = (currentIndex - 1 + totalCards) % totalCards;
       updateSlide();
     }
 
@@ -646,20 +641,6 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   /* -------------------------
-     DROPDOWN MENU (Desktop + Mobile)
-  ------------------------- */
-  document.querySelectorAll(".dropdown-toggle, .mobile-dropdown-toggle")
-    .forEach(toggle => {
-      toggle.addEventListener("click", function (e) {
-        e.preventDefault();
-        this.parentElement.classList.toggle("active");
-      });
-    });
-
-
-
-
-  /* -------------------------
      NAVBAR BACKGROUND ON SCROLL
   ------------------------- */
   const navbar = document.querySelector(".navbar");
@@ -675,38 +656,71 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   /* -------------------------
-   MOBILE MENU TOGGLE
-------------------------- */
-const menuBtn = document.querySelector(".menu-toggle");
-const mobileMenu = document.querySelector(".mobile-menu");
-const closeBtn = document.querySelector(".close-btn");
-
-if (menuBtn && mobileMenu) {
-  menuBtn.addEventListener("click", () => {
-    mobileMenu.classList.add("active");
+     DESKTOP + MOBILE DROPDOWN
+  ------------------------- */
+  document.querySelectorAll(".dropdown-toggle").forEach(toggle => {
+    toggle.addEventListener("click", function (e) {
+      e.preventDefault();
+      this.parentElement.classList.toggle("active");
+    });
   });
-}
 
-if (closeBtn && mobileMenu) {
-  closeBtn.addEventListener("click", () => {
-    mobileMenu.classList.remove("active");
+  // Mobile dropdown inside mobile menu
+  document.querySelectorAll(".mobile-dropdown-toggle").forEach(toggle => {
+    toggle.addEventListener("click", function () {
+      const dropdownMenu = this.nextElementSibling;
+      if (!dropdownMenu) return;
+
+      // Toggle height for smooth animation
+      if (dropdownMenu.style.maxHeight && dropdownMenu.style.maxHeight !== "0px") {
+        dropdownMenu.style.maxHeight = "0";
+        dropdownMenu.style.opacity = 0;
+      } else {
+        dropdownMenu.style.maxHeight = dropdownMenu.scrollHeight + "px";
+        dropdownMenu.style.opacity = 1;
+      }
+    });
   });
-}
 
+  /* -------------------------
+     MOBILE MENU TOGGLE
+  ------------------------- */
+  const menuBtn = document.querySelector(".menu-toggle");
+  const mobileMenu = document.querySelector(".mobile-menu");
+  const closeBtn = document.querySelector(".close-btn");
 
+  if (menuBtn && mobileMenu) {
+    menuBtn.addEventListener("click", () => {
+      mobileMenu.classList.add("active");
+    });
+  }
 
-});
+  if (closeBtn && mobileMenu) {
+    closeBtn.addEventListener("click", () => {
+      mobileMenu.classList.remove("active");
+    });
+  }
 
-</script>
+  // Close mobile menu when link clicked
+  document.querySelectorAll("#mobileMenu a").forEach(link => {
+    link.addEventListener("click", () => {
+      mobileMenu.classList.remove("active");
+      document.querySelectorAll(".mobile-menu .dropdown-menu").forEach(menu => {
+        menu.style.maxHeight = "0";
+        menu.style.opacity = 0;
+      });
+    });
+  });
 
-  <script>
-document.addEventListener("DOMContentLoaded", () => {
+  /* -------------------------
+     ACHIEVEMENT COUNTER
+  ------------------------- */
   const counters = document.querySelectorAll(".achievement-item h3");
-  let started = false;
+  let countingStarted = false;
 
   function startCounting() {
-    if (started) return; // ek hi bar chalega
-    started = true;
+    if (countingStarted) return;
+    countingStarted = true;
 
     counters.forEach(counter => {
       const target = +counter.getAttribute("data-target");
@@ -714,29 +728,29 @@ document.addEventListener("DOMContentLoaded", () => {
       let count = 0;
       const increment = Math.ceil(target / 100);
 
-      const updateCounter = setInterval(() => {
+      const interval = setInterval(() => {
         count += increment;
         if (count >= target) {
           count = target;
-          clearInterval(updateCounter);
+          clearInterval(interval);
         }
         counter.textContent = count + suffix;
       }, 20);
     });
   }
 
-  // Jab section viewport me aaye tab shuru karo
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        startCounting();
-      }
+      if (entry.isIntersecting) startCounting();
     });
   }, { threshold: 0.5 });
 
-  observer.observe(document.querySelector(".achievements-section"));
+  const achievementsSection = document.querySelector(".achievements-section");
+  if (achievementsSection) observer.observe(achievementsSection);
+
 });
 </script>
+
 
 
 </body>
